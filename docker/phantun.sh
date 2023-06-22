@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # alias ​​settings must be global, and must be defined before the function being called with the alias
 if [ "$USE_IPTABLES_NFT_BACKEND" = 1 ]; then

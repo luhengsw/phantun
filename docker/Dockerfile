@@ -8,6 +8,7 @@
 FROM rust:latest AS builder
 
 COPY . /phantun
+COPY docker/.cargo $HOME/.cargo/config
 
 RUN cd phantun \
   && cargo build --release \
@@ -20,11 +21,14 @@ RUN cd phantun \
 #
 # Runtime stage
 #
-FROM debian:latest
+FROM ubuntu:focal
 
 COPY --from=builder /usr/local/bin/phantun-server /usr/local/bin/
 COPY --from=builder /usr/local/bin/phantun-client /usr/local/bin/
 COPY docker/phantun.sh /usr/local/bin/
+RUN apt-get update && apt-get install -y \
+    iproute2 \
+    iptables
 
 ENV USE_IPTABLES_NFT_BACKEND=0
 ENV RUST_LOG=INFO
