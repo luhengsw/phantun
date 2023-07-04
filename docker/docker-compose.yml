@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   phantun-server:
-    image: registry.cn-hangzhou.aliyuncs.com/luheng/phantun:0.6.0
+    image: registry.cn-hangzhou.aliyuncs.com/luheng/phantun:0.6.1
     container_name: phantun-server
     restart: unless-stopped
     network_mode: host
@@ -14,7 +14,7 @@ services:
       phantun-server --local 30087 --remote <server-ip>:13232 --ipv4-only
 
   phantun-client:
-    image: registry.cn-hangzhou.aliyuncs.com/luheng/phantun:0.6.0
+    image: registry.cn-hangzhou.aliyuncs.com/luheng/phantun:0.6.1
     container_name: phantun-client
     restart: unless-stopped
     network_mode: host
@@ -23,4 +23,4 @@ services:
       USE_IPTABLES_NFT_BACKEND: 0
       RUST_LOG: debug
     command: >
-      phantun-client --local 0.0.0.0:13232 --remote <server-public>:30087 --ipv4-only --tun tun1
+      phantun-client --local 0.0.0.0:13232 --remote <server-public>:30087 --ipv4-only -k 10 --tun tun1
